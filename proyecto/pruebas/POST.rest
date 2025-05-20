@@ -1,0 +1,10 @@
+#Publicar un articulo a traves de la API
+POST http://127.0.0.1:5000/articulos
+Content-Type: application/json
+
+{
+  "titulo": "Artículo de prueba",
+  "contenido": "Este es el contenido del artículo.",
+  "categoria": "General",
+  "fecha_publicacion": "2025-05-20"
+}

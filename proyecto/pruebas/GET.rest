@@ -1,0 +1,5 @@
+#Obtener lista de articulos
+GET http://127.0.0.1:5000/articulos
+
+#Obtener un articulo por id
+GET http://127.0.0.1:5000/articulos/1

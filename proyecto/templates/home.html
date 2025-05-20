@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Welcome to the Article Management System</h1>
+  <p>This is the home page of the application.</p>
+
+  {% if current_user.is_authenticated %}
+    <p>Hello, {{ current_user.username }}!</p>
+    <a href="{{ url_for('main.list_articles') }}" class="btn btn-primary">View Articles</a>
+  {% else %}
+    <p>Please <a href="{{ url_for('auth.login') }}">log in</a> or <a href="{{ url_for('auth.register') }}">register</a> to access the system.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,2 @@
+#Eliminar un articulo con un ID especifico
+DELETE http://127.0.0.1:5000/articulos/3

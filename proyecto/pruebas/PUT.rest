@@ -1,0 +1,9 @@
+PUT http://127.0.0.1:5000/articulos/3
+Content-Type: application/json
+
+{
+  "titulo": "Título actualizado",
+  "contenido": "Contenido actualizado",
+  "categoria": "Actualizada",
+  "fecha_publicacion": "2025-05-21"
+}

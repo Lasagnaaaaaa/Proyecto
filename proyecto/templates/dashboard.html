@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}Panel de Control{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col">
+    <h3>Gestión de Artículos</h3>
+  </div>
+  <div class="col text-end">
+    <!-- Verifica el rol del usuario para crear artículos -->
+    {% if current_user.role.name != 'Student' %}
+      <a class="btn btn-primary mb-3 me-2" href="{{ url_for('main.create_article') }}">
+        <i class="bi bi-plus"></i> Nuevo Artículo
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead class="table-light">
+    <tr>
+      <th>Título</th>
+      <th>Categoría</th>
+      <th>Estado</th>
+      <th>Fecha de publicación</th> <!-- Agrega esta línea -->
+      <th>Autor</th> <!-- Nueva columna -->
+      <th class="text-center">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for article in articles %}
+    <tr>
+      <td>{{ article.titulo }}</td>
+      <td>{{ article.categoria }}</td>
+      <td>{{ article.estado.value }}</td>
+      <td>{{ article.fecha_publicacion.strftime('%Y-%m-%d') if article.fecha_publicacion else '' }}</td> <!-- Y esta línea -->
+      <td>{{ article.autor.username }}</td> <!-- Mostrar autor -->
+      <td class="text-center ps-0 pe-0">
+        {% if current_user.role.name == 'Admin' or article.autor_id == current_user.id %}
+          <!-- Acciones de editar y eliminar -->
+          <a class="btn btn-sm btn-warning" href="{{ url_for('main.edit_article', id=article.id) }}" title="Editar artículo">
+            <i class="bi bi-pencil"></i>
+          </a>
+          <form method="POST" action="{{ url_for('main.delete_article', id=article.id) }}" style="display: inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este artículo?');">
+            <button type="submit" class="btn btn-sm btn-danger" title="Eliminar artículo">
+              <i class="bi bi-trash"></i>
+            </button>
+          </form>
+        {% else %}
+          <!-- Acción bloqueada -->
+          <span class="text-muted"><i class="bi bi-lock"></i></span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Mensaje de permisos -->
+{% if current_user.role.name == 'Student' %}
+  <p class="text-center pe-3 mt-0 text-body-tertiary fw-lighter fst-italic">
+    No tienes permiso para crear, actualizar o eliminar artículos.
+  </p>
+{% endif %}
+
+{% endblock %}

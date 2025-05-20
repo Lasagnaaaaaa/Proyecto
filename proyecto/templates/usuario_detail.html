@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Detalle de Usuario{% endblock %}
+{% block content %}
+<!-- Tarjeta con los detalles del usuario -->
+<div class="card mt-4 col-md-6 offset-md-3">
+  <div class="card-header">
+    <h4>Detalles del Usuario</h4>
+  </div>
+  <div class="card-body">
+    <p><strong>Usuario:</strong> {{ usuario.username }}</p>
+    <p><strong>Email:</strong> {{ usuario.email }}</p>
+    <p><strong>Rol:</strong> {{ usuario.role.name }}</p>
+    <!-- Botón para volver a la lista de usuarios -->
+    <a href="{{ url_for('main.listar_usuarios') }}" class="btn btn-secondary mt-2">Volver a Usuarios</a>
+  </div>
+</div>
+{% endblock %}
